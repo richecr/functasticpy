@@ -1,11 +1,9 @@
-from typing import Callable, List, TypeVar, Union
+from typing import Any, Callable, TypeVar
 
 T = TypeVar("T")
 
 
-def curry(
-    fn: Callable, args: List[Union[T, List[Callable[[T], bool]]]]
-) -> Union[bool, Callable[[T], bool]]:
+def curry(fn: Callable, args: list[T]) -> Any:
     diff = fn.__code__.co_argcount - len(args)
 
     if diff == 0:
