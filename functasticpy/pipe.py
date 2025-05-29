@@ -17,5 +17,6 @@ async def pipe(value: T, *functions: Callable) -> T:
 def pipe_sync(value: T, *functions: Callable[[T], Union[T]]) -> T:
     for func in functions:
         result = func(value)
+        value = result
 
     return result
