@@ -28,3 +28,30 @@ def concat(arr2: List[T]) -> Callable[[List[T]], List[T]]:
         Callable[[List[T]], List[T]]: A function that takes a list and returns the concatenated list.
     """
     ...
+
+@overload
+def concat(arr1: str, arr2: str) -> str:
+    """
+    Concatenate two lists.
+
+    Args:
+        arr1 (str): The first list.
+        arr2 (str): The second list.
+
+    Returns:
+        str: The concatenated list.
+    """
+    ...
+
+@overload
+def concat(arr2: str) -> Callable[[str], str]:
+    """
+    Create a function that concatenates a list with another list.
+
+    Args:
+        arr2 (str): The second list.
+
+    Returns:
+        Callable[[str], str]: A function that takes a list and returns the concatenated list.
+    """
+    ...
