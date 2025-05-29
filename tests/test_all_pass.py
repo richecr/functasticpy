@@ -1,6 +1,7 @@
 from typing import Callable, List
 
 from functasticpy.all_pass import all_pass
+from functasticpy.pipe import pipe_sync
 
 
 def is_divisible_by_3(x: int) -> bool:
@@ -55,4 +56,17 @@ def test_all_pass_with_single_function() -> None:
 
     curried_fn = all_pass(fns)
     result = curried_fn(6)
+    assert result is True
+
+
+def test_all_pass_in_pipe() -> None:
+    fns: List[Callable[[int], bool]] = [is_divisible_by_3, is_divisible_by_4]
+
+    result = pipe_sync(12, all_pass(fns))
+    assert result is True
+
+    result = pipe_sync(8, all_pass(fns))
+    assert result is False
+
+    result = pipe_sync(0, all_pass(fns))
     assert result is True
