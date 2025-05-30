@@ -18,7 +18,7 @@ class CustomObjectWithHash:
         return hash(self.value)
 
 
-@dataclass
+@dataclass(unsafe_hash=True)
 class CustomObjectWithDataclass:
     value: int
     descrtiption: str

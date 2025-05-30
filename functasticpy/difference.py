@@ -14,25 +14,17 @@ def difference(*args: List[List[T]]) -> List[T]:
             return arr1
 
         if hasattr(arr1[0], "__str__") and not is_hashable(arr1[0]):
-            return difference_dict(arr1, arr2)
+            return difference_hashable_by_str(arr1, arr2)
 
-        set_ = set()
-        for i in arr2:
-            set_.add(i)
-
-        result_set = set()
-        result = []
-        for item in arr1:
-            if item not in set_ and item not in result_set:
-                result.append(item)
-                result_set.add(item)
+        a = set(arr1)
+        result = list(a.difference(arr2))
 
         return result
 
     return curry(difference_implementation, list(args))
 
 
-def difference_dict(arr1: List[T], arr2: List[T]) -> List[T]:
+def difference_hashable_by_str(arr1: List[T], arr2: List[T]) -> List[T]:
     set_ = set()
     for i in arr2:
         set_.add(i.__str__())
