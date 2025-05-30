@@ -14,7 +14,7 @@ async def multiple_2_async(x: List[int]) -> List[str]:
     return ["a" * i for i in x]
 
 
-async def main():
+async def main() -> None:
     a = await pipe(
         [1, 2, 3],
         sum_1_async,
@@ -23,5 +23,4 @@ async def main():
     print(a)
 
 
-# Rodando a função main
 asyncio.run(main())

@@ -2,6 +2,7 @@ from typing import Callable, List, TypeVar, overload
 
 T = TypeVar("T")
 
+
 @overload
 def concat(arr1: List[T], arr2: List[T]) -> List[T]:
     """
@@ -16,6 +17,7 @@ def concat(arr1: List[T], arr2: List[T]) -> List[T]:
     """
     ...
 
+
 @overload
 def concat(arr2: List[T]) -> Callable[[List[T]], List[T]]:
     """
@@ -28,6 +30,7 @@ def concat(arr2: List[T]) -> Callable[[List[T]], List[T]]:
         Callable[[List[T]], List[T]]: A function that takes a list and returns the concatenated list.
     """
     ...
+
 
 @overload
 def concat(arr1: str, arr2: str) -> str:
@@ -42,6 +45,7 @@ def concat(arr1: str, arr2: str) -> str:
         str: The concatenated list.
     """
     ...
+
 
 @overload
 def concat(arr2: str) -> Callable[[str], str]:
