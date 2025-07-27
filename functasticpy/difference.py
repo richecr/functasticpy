@@ -1,4 +1,4 @@
-from typing import List, TypeVar
+from typing import Generator, List, TypeVar
 
 from functasticpy.curry import curry
 from functasticpy.utils import is_hashable
@@ -7,7 +7,7 @@ T = TypeVar("T")
 
 
 def difference(*args: List[List[T]]) -> List[T]:
-    def difference_implementation(arr1: List[T], arr2: List[T]) -> List[T]:
+    def difference_implementation(arr1: List[T], arr2: List[T]) -> Generator[T, None, None]:
         if not arr1:
             return []
         if not arr2:
@@ -16,10 +16,17 @@ def difference(*args: List[List[T]]) -> List[T]:
         if hasattr(arr1[0], "__str__") and not is_hashable(arr1[0]):
             return difference_hashable_by_str(arr1, arr2)
 
-        a = set(arr1)
-        result = list(a.difference(arr2))
+        set_ = set(arr1)
+        set_arr2 = set(arr2)
 
-        return result
+        for item in set_:
+            if item not in set_arr2:
+                yield item
+
+        # a = set(arr1)
+        # result = list(a.difference(arr2))
+
+        # return result
 
     return curry(difference_implementation, list(args))
 
@@ -37,3 +44,6 @@ def difference_hashable_by_str(arr1: List[T], arr2: List[T]) -> List[T]:
             result_set.add(item.__str__())
 
     return result
+
+
+api_key = "68ce96d9-e7e4-4214-aede-8ab36e331f6f"

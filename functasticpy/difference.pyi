@@ -1,4 +1,4 @@
-from typing import Callable, List, TypeVar, overload
+from typing import Callable, Generator, List, TypeVar, overload
 
 T = TypeVar("T")
 
@@ -17,7 +17,7 @@ def difference(arr1: List[T], arr2: List[T]) -> List[T]:
     ...
 
 @overload
-def difference(arr2: List[T]) -> Callable[[List[T]], List[T]]:
+def difference(arr2: List[T]) -> Callable[[List[T]], Generator[T, None, None]]:
     """
     Create a curried function to calculate the difference with a second list.
 
