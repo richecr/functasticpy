@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from functasticpy.difference import difference
-from functasticpy.pipe import pipe_sync
+from functasticpy.stubs.pipe import pipe_sync
 
 
 class CustomObjectWithHash:

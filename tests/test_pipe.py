@@ -2,7 +2,7 @@ import asyncio
 
 import pytest
 
-from functasticpy.pipe import pipe, pipe_sync
+from functasticpy.stubs.pipe import pipe, pipe_sync
 
 
 async def async_increment(x: int) -> int:

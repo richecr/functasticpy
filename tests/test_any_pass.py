@@ -1,7 +1,7 @@
 from typing import Callable, List
 
 from functasticpy.any_pass import any_pass
-from functasticpy.pipe import pipe_sync
+from functasticpy.stubs.pipe import pipe_sync
 
 
 def is_divisible_by_3(x: int) -> bool:

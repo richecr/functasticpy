@@ -1,5 +1,5 @@
 from functasticpy.concat import concat
-from functasticpy.pipe import pipe_sync
+from functasticpy.stubs.pipe import pipe_sync
 
 
 def test_concat_data_first() -> None:

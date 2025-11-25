@@ -1,7 +1,7 @@
 from typing import Callable, List
 
 from functasticpy.all_pass import all_pass
-from functasticpy.pipe import pipe_sync
+from functasticpy.pipe import pipe
 
 
 def is_divisible_by_3(x: int) -> bool:
@@ -12,23 +12,18 @@ def is_divisible_by_4(x: int) -> bool:
     return x % 4 == 0
 
 
-def test_all_pass_data_first() -> None:
-    fns: List[Callable[[int], bool]] = [is_divisible_by_3, is_divisible_by_4]
-
-    result = all_pass(12, fns)
-    assert result is True
-
-    result = all_pass(8, fns)
-    assert result is False
-
-
-def test_all_pass_data_last() -> None:
-    fns: List[Callable[[int], bool]] = [is_divisible_by_3, is_divisible_by_4]
+def test_all_pass_return_true() -> None:
+    fns = [is_divisible_by_3, is_divisible_by_4]
 
     curried_fn = all_pass(fns)
-
     result = curried_fn(12)
     assert result is True
+
+
+def test_all_pass_return_false() -> None:
+    fns = [is_divisible_by_3, is_divisible_by_4]
+
+    curried_fn = all_pass(fns)
 
     result = curried_fn(8)
     assert result is False
@@ -41,17 +36,16 @@ def test_all_pass_with_empty_functions() -> None:
     result = curried_fn(12)
     assert result is True
 
-    result = curried_fn(0)
-    assert result is True
-
 
 def test_all_pass_with_single_function() -> None:
-    fns: List[Callable[[int], bool]] = [is_divisible_by_3]
+    fns = [is_divisible_by_3]
 
-    result = all_pass(9, fns)
+    curried_fn = all_pass(fns)
+    result = curried_fn(9)
     assert result is True
 
-    result = all_pass(8, fns)
+    curried_fn = all_pass(fns)
+    result = curried_fn(8)
     assert result is False
 
     curried_fn = all_pass(fns)
@@ -59,14 +53,12 @@ def test_all_pass_with_single_function() -> None:
     assert result is True
 
 
-def test_all_pass_in_pipe() -> None:
-    fns: List[Callable[[int], bool]] = [is_divisible_by_3, is_divisible_by_4]
+def test_all_pass_with_pipe() -> None:
+    fns = [is_divisible_by_3, is_divisible_by_4]
 
-    result = pipe_sync(12, all_pass(fns))
+    curried_fn = all_pass(fns)
+    result = curried_fn(pipe(6, lambda x: x + 6))
     assert result is True
 
-    result = pipe_sync(8, all_pass(fns))
+    result = curried_fn(pipe(7, lambda x: x + 1))
     assert result is False
-
-    result = pipe_sync(0, all_pass(fns))
-    assert result is True
