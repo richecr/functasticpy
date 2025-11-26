@@ -1,12 +1,11 @@
-from typing import Callable, List, TypeVar, Union
-
-from functasticpy.curry import curry
-
-T = TypeVar("T")
+from typing import Any, Callable, Iterable
 
 
-def any_pass(*args: Union[T, List[Callable[[T], bool]]]) -> Union[bool, Callable[[T], bool]]:
-    def any_pass_implementation(data: T, fns: List[Callable[[T], bool]]) -> bool:
-        return any(fn(data) for fn in fns)
+def any_pass(predicates: Iterable[Callable[..., Any]]):
+    def checker(value: Any) -> bool:
+        for predicate in predicates:
+            if predicate(value):
+                return True
+        return False
 
-    return curry(any_pass_implementation, list(args))
+    return checker
